@@ -1,39 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
+import { MovieService } from '../shared/services/movies.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-
   friendsForm: FormGroup;
-  options = ['all', 'developer', 'top-manager', 'writer', 'businessman', 'engineer', 'preacher'];
-
-  filteredItems = [];
-
-  friends = [
-    { id: 1, name: 'Andriy', specialty: ['developer', 'preacher'] },
-    { id: 2, name: 'Sasha', specialty: ['top-manager'] },
-    { id: 3, name: 'Stephan', specialty: ['developer'] },
-    { id: 4, name: 'Masha', specialty: ['writer'] },
-    { id: 5, name: 'Katya', specialty: ['businessman'] },
-    { id: 6, name: 'Masha', specialty: ['preacher', 'top-manager'] },
-    { id: 6, name: 'Zina', specialty: ['engineer'] },
+  options = [
+    'all',
+    'developer',
+    'top-manager',
+    'writer',
+    'businessman',
+    'engineer',
+    'preacher',
+    'action',
+    'Drama',
   ];
 
-  constructor(private fb: FormBuilder) {}
+  filteredItems: any = [];
+
+  movies: any = [];
+
+  constructor(private fb: FormBuilder, private movieService: MovieService) {}
 
   filterByName() {
-    const currentName = this.friendsForm.value.friendControl.toLowerCase();
-    const filteredNames = this.friends.filter((person) => {
-      return person.specialty.indexOf(currentName) != -1;
+    const currentName = this.friendsForm.value.friendControl;
+    const filteredNames = this.movies.filter((movie) => {
+      return movie.genres.indexOf(currentName) != -1;
     });
     this.filteredItems = filteredNames;
-
-    if(currentName === 'all') {
-      this.filteredItems = [...this.friends];
+    if (currentName === 'all') {
+      return this.filteredItems;
     }
     console.log(this.filteredItems);
   }
@@ -42,6 +44,10 @@ export class AppComponent implements OnInit {
     this.friendsForm = this.fb.group({
       friendControl: ['all'],
     });
-    this.filteredItems = [...this.friends];
+    this.movieService.getMovieList().subscribe((res) => {
+      this.movies = res;
+      this.filteredItems = [...this.movies];
+      console.log(res)
+    });
   }
 }
