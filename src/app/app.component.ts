@@ -18,10 +18,10 @@ export class AppComponent implements OnInit {
     'comedy',
     'biography',
     'thriller',
-    'sport'
+    'sport',
   ];
 
-  filteredItems: any = [];
+  filteredMovies: any = [];
 
   movies: any = [];
 
@@ -30,14 +30,14 @@ export class AppComponent implements OnInit {
   filterByName() {
     const currentName = this.friendsForm.value.friendControl.toLowerCase();
     const filteredNames = this.movies.filter((movie) => {
-      const genre = movie.genres.map(val => val.toLowerCase());
+      const genre = movie.genres.map((val) => val.toLowerCase());
       return genre.indexOf(currentName) != -1;
     });
-    this.filteredItems = filteredNames;
+    this.filteredMovies = filteredNames;
     if (currentName === 'all') {
-      return this.filteredItems = [...this.movies];
+      return (this.filteredMovies = [...this.movies]);
     }
-    console.log(this.filteredItems);
+    console.log(this.filteredMovies);
   }
 
   ngOnInit() {
@@ -45,9 +45,9 @@ export class AppComponent implements OnInit {
       friendControl: ['all'],
     });
     this.movieService.getMovieList().subscribe((res) => {
+      this.filteredMovies = res;
       this.movies = res;
-      this.filteredItems = [...this.movies];
-      console.log(res)
+      console.log(res);
     });
   }
 }
