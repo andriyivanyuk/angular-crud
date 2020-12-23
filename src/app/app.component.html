@@ -1,0 +1,16 @@
+
+<form [formGroup]="friendsForm">
+  <select
+    (change)="filterByName()"
+    formControlName="friendControl">
+    <option [value]="option" *ngFor="let option of options">
+      {{ option }}
+    </option>
+  </select>
+</form>
+
+<ul>
+  <li *ngFor="let friend of filteredItems">
+    {{ friend.name }}, {{ friend.id }}
+  </li>
+</ul>
