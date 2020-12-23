@@ -12,14 +12,13 @@ export class AppComponent implements OnInit {
   friendsForm: FormGroup;
   options = [
     'all',
-    'developer',
-    'top-manager',
-    'writer',
-    'businessman',
-    'engineer',
-    'preacher',
     'action',
-    'Drama',
+    'drama',
+    'sci-fi',
+    'comedy',
+    'biography',
+    'thriller',
+    'sport'
   ];
 
   filteredItems: any = [];
@@ -29,13 +28,14 @@ export class AppComponent implements OnInit {
   constructor(private fb: FormBuilder, private movieService: MovieService) {}
 
   filterByName() {
-    const currentName = this.friendsForm.value.friendControl;
+    const currentName = this.friendsForm.value.friendControl.toLowerCase();
     const filteredNames = this.movies.filter((movie) => {
-      return movie.genres.indexOf(currentName) != -1;
+      const genre = movie.genres.map(val => val.toLowerCase());
+      return genre.indexOf(currentName) != -1;
     });
     this.filteredItems = filteredNames;
     if (currentName === 'all') {
-      return this.filteredItems;
+      return this.filteredItems = [...this.movies];
     }
     console.log(this.filteredItems);
   }
