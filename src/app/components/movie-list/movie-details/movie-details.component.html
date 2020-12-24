@@ -1,0 +1,18 @@
+<div class="modal">
+  <div class="modal-dialog" role="dialog" aria-hidden="true">
+      <div *ngIf="movie" class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title">{{ movie.name }}</h3>
+          </div>
+          <div class="modal-body">
+              <p>{{ movie.director }}</p>
+              <p>{{ movie.description }}</p>
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary" type="link" routerLink='/list'>Back to the list</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true"></div>
+

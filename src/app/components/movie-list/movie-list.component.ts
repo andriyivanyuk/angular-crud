@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { MovieService } from '../../../shared/services/movies.service';
 
@@ -25,7 +26,11 @@ export class MovieListComponent implements OnInit {
 
   movies: any = [];
 
-  constructor(private fb: FormBuilder, private movieService: MovieService) {}
+  constructor(
+    private fb: FormBuilder,
+    private movieService: MovieService,
+    private router: Router
+  ) {}
 
   filterByName() {
     const currentName = this.movieForm.value.friendControl.toLowerCase();
@@ -38,6 +43,10 @@ export class MovieListComponent implements OnInit {
       return (this.filteredMovies = [...this.movies]);
     }
     console.log(this.filteredMovies);
+  }
+
+  onClick(movieId: number) {
+    this.router.navigate(['/movies', movieId]);
   }
 
   ngOnInit() {
