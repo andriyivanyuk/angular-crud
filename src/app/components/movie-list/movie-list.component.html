@@ -1,6 +1,6 @@
 <div class="clr-col-lg-12 clr-col-md-8 clr-col-12">
   <form [formGroup]="movieForm">
-    <label class="genres-title">Filter by genres</label>
+    <label class="genres-title">Filter by genres:</label>
     <select (change)="filterByName()" formControlName="friendControl">
       <option [value]="option" *ngFor="let option of options">
         {{ option }}
@@ -8,18 +8,9 @@
     </select>
   </form>
   <div class="cards-wrapper">
-    <div *ngFor="let movie of filteredMovies" class="card">
-      <div class="card-header">Id: {{ movie.id }}</div>
-      <div class="card-block">
-        <div class="card-img">
-          <img src="{{ movie.img }}">
-        </div>
-        <div class="card-title">{{ movie.name }}</div>
-        <div class="card-text">Director: {{ movie.director }}</div>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-sm btn-link">Details</button>
-      </div>
-    </div>
+    <app-movie-card
+      *ngFor="let movie of filteredMovies"
+      [movie]="movie"
+    ></app-movie-card>
   </div>
 </div>

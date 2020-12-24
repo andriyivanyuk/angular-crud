@@ -3,10 +3,6 @@
   column-gap: 1em;
   flex-wrap: wrap;
 }
-
-.card {
-  max-width: 300px;
-}
 .genres-title {
   margin-right: 20px;
 }
